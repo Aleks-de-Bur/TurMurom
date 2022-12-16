@@ -10,6 +10,12 @@ interface MarkDao {
     @Query("SELECT * FROM Marks")
     fun getAllMarks(): Flow<List<Mark>>
 
+    /**
+     * Единоразово получает список всех достопримечательностей
+     */
+    @Query("SELECT * FROM Marks")
+    suspend fun getAllMarksSuspend(): List<Mark>
+
     @Query("SELECT * FROM Categories")
     fun getAllCategories(): Flow<List<Category>>
 

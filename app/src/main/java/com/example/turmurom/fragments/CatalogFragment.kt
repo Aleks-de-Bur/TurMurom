@@ -5,25 +5,28 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
 import com.example.turmurom.R
 import com.example.turmurom.activities.MainApp
 import com.example.turmurom.adapters.CatalogAdapter
+import com.example.turmurom.adapters.CategoryFilterAdapter
 import com.example.turmurom.database.MainViewModel
-import com.example.turmurom.database.models.Excursion
+import com.example.turmurom.database.models.Category
 import com.example.turmurom.database.models.Mark
+import com.example.turmurom.databinding.CategoryListItemBinding
 import com.example.turmurom.databinding.FragmentCatalogBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class CatalogFragment : Fragment(), CatalogAdapter.CatalogListener {
+class CatalogFragment : Fragment(), CatalogAdapter.CatalogListener,
+    CategoryFilterAdapter.CategoryFilterListener {
     private lateinit var binding: FragmentCatalogBinding
-    private lateinit var adapter: CatalogAdapter
+    private lateinit var catalogAdapter: CatalogAdapter
+    private val catalogFilterAdapter: CategoryFilterAdapter = CategoryFilterAdapter(this)
 
     private val mainViewModel: MainViewModel by activityViewModels {
         MainViewModel.MainViewModelFactory((context?.applicationContext as MainApp).database)
@@ -43,6 +46,7 @@ class CatalogFragment : Fragment(), CatalogAdapter.CatalogListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRcView()
+        initRcViewCategories()
         observer()
         //mainViewModel.getCurrentCategories()
         binding.imageButton.setOnClickListener {
@@ -52,15 +56,29 @@ class CatalogFragment : Fragment(), CatalogAdapter.CatalogListener {
 
     private fun initRcView() = with(binding) {
         rcView.layoutManager = LinearLayoutManager(activity)
-        adapter = CatalogAdapter(this@CatalogFragment)
-        rcView.adapter = adapter
+        catalogAdapter = CatalogAdapter(this@CatalogFragment)
+        rcView.adapter = catalogAdapter
+    }
+
+    /**
+     * В горизонтальный ресайклер пихаем адаптер по фильтрам
+     */
+    private fun initRcViewCategories() {
+        binding.rcViewCategory.apply {
+            layoutManager = LinearLayoutManager(requireContext(), HORIZONTAL, false)
+            adapter = catalogFilterAdapter
+        }
     }
 
     private fun observer() {
-            mainViewModel.allMarksByCategory.observe(viewLifecycleOwner, {
-                adapter.submitList(it)
-            })
-
+        mainViewModel.filterMarksByCategory()
+        mainViewModel.allMarksByCategory.observe(viewLifecycleOwner) {
+            catalogAdapter.submitList(it)
+        }
+        mainViewModel.chosenCategoriesLiveData.observe(
+            viewLifecycleOwner,
+            catalogFilterAdapter::submitList
+        )
 //        if (mainViewModel.filter) {
 //            mainViewModel.allMarksByCategory.observe(viewLifecycleOwner, {
 //                adapter.submitList(it)
@@ -70,13 +88,6 @@ class CatalogFragment : Fragment(), CatalogAdapter.CatalogListener {
 //                adapter.submitList(it)
 //            })
 //        }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        mainViewModel.allMarks.observe(this, {
-            it
-        })
     }
 
     companion object {
@@ -111,6 +122,23 @@ class CatalogFragment : Fragment(), CatalogAdapter.CatalogListener {
             }
         }
         return mainViewModel.markPhoto.value!!.pathPhoto
+    }
+
+    /**
+     * Переопределение листенера при клике на фильтр
+     */
+    override fun onClick(category: Category, binding: CategoryListItemBinding) {
+        mainViewModel.currentCategories[category.id!!] =
+            !mainViewModel.currentCategories[category.id!!]!!
+        mainViewModel.filterMarksByCategory()
+        mainViewModel.updateChosenCategories()
+    }
+
+    override fun coloringCategoryItems(category: Category, binding: CategoryListItemBinding) {
+        if (mainViewModel.currentCategories[category.id!!] == true)
+            binding.layout.setBackgroundColor(resources.getColor(R.color.currentCategory))
+        else
+            binding.layout.setBackgroundColor(resources.getColor(R.color.transparent))
     }
 
     override fun getCategory(id: Int): String {

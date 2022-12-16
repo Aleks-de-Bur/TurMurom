@@ -5,8 +5,6 @@ import com.example.turmurom.database.models.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
@@ -32,17 +30,21 @@ class MainViewModel(database: MainDb) : ViewModel() {
     var allMarksForRoute: MutableList<Mark> = mutableListOf()
     lateinit var allRouteMarksById: List<RouteMarks>
     lateinit var allMarkPhotosById: List<MarkPhoto>
-    lateinit var allMarksByCategory: LiveData<List<Mark>>
+    val allMarksByCategory: MutableLiveData<List<Mark>> = MutableLiveData()
     val allGuides: LiveData<List<Guide>> = guideDao.getAll().asLiveData()
 
+    /**
+     * Лайв-дата с выбранными категориями. Обновляется в соответствующем методе
+     * @see updateChosenCategories()
+     */
+    val chosenCategoriesLiveData = MutableLiveData<List<Category>>()
 
-    val dictOfCategories : MutableMap<Int, String> = mutableMapOf()
-    val currentCategories : MutableMap<Int, Boolean> = mutableMapOf()
 
+    val dictOfCategories: MutableMap<Int, String> = mutableMapOf()
+    val currentCategories: MutableMap<Int, Boolean> = mutableMapOf()
 
 
     lateinit var currentUser: RegisterEntity
-
 
 
     val markId: MutableLiveData<Mark> by lazy {
@@ -85,8 +87,6 @@ class MainViewModel(database: MainDb) : ViewModel() {
     }
 
 
-
-
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.IO + viewModelJob)
 
@@ -114,12 +114,23 @@ class MainViewModel(database: MainDb) : ViewModel() {
         allMarksForRoute.add(markDao.getMarkById(id)!!)
     }
 
-    fun getListOfMarksByCategory(id: String) {
-        allMarksByCategory = markDao.getMarkByCategoryId(id).asLiveData()
+    /**
+     * Обновляем лайв-дату со списком достопремечательностей по категориям
+     * @see allMarksByCategory
+     */
+    fun filterMarksByCategory() {
+        viewModelScope.launch {
+            val marks = markDao.getAllMarksSuspend()
+            if (currentCategories.all { !it.value }) {
+                allMarksByCategory.value = marks
+            } else {
+                allMarksByCategory.value = marks.filter { currentCategories[it.categoryId] == true }
+            }
+        }
     }
 
     fun getCurrentCategories() {
-        for(cat in dictOfCategories){
+        for (cat in dictOfCategories) {
             currentCategories[cat.key] = true           //Поправить на фолс
         }
     }
@@ -162,6 +173,18 @@ class MainViewModel(database: MainDb) : ViewModel() {
 
     fun insertEntity(registerEntity: RegisterEntity) = viewModelScope.launch {
         registerEntityDao.insertEntity(registerEntity)
+    }
+
+    /**
+     * Обновляет лайв-дату согласно выбранным категориям
+     * @see chosenCategoriesLiveData
+     */
+    fun updateChosenCategories() {
+        chosenCategoriesLiveData.postValue(
+            currentCategories.filter { it.value }.mapNotNull { entry ->
+                allCategories.value?.firstOrNull { it.id == entry.key }
+            }
+        )
     }
 
     class MainViewModelFactory(val database: MainDb) : ViewModelProvider.Factory {

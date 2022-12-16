@@ -115,9 +115,9 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                     id += category.key
             }
 
-            lifecycleScope.launch(Dispatchers.IO) {
-                mainViewModel.getListOfMarksByCategory(id.trim(','))
-            }
+            /*lifecycleScope.launch(Dispatchers.IO) {
+                mainViewModel.getListOfMarksByCategory()
+            }*/
 
 
         }

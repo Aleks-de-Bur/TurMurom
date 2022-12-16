@@ -2,8 +2,6 @@ package com.example.turmurom.fragments
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.res.Resources
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +10,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.turmurom.R
 import com.example.turmurom.activities.MainApp
@@ -22,8 +19,6 @@ import com.example.turmurom.database.models.Category
 import com.example.turmurom.databinding.CategoryListItemBinding
 import com.example.turmurom.databinding.FragmentCategoryFilterBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class CategoryFilterFragment : BottomSheetDialogFragment(),
     CategoryFilterAdapter.CategoryFilterListener {
@@ -117,22 +112,23 @@ class CategoryFilterFragment : BottomSheetDialogFragment(),
 
     private fun onSubmit() {
         var id = ""
-        for (category in currentCategories) {
-            if (currentCategories[category.key] == true)
-                id += category.key
+        for (key in currentCategories.keys) {
+            mainViewModel.currentCategories[key] = currentCategories[key]!!
         }
 
-        lifecycleScope.launch(Dispatchers.IO) {
+        /*lifecycleScope.launch(Dispatchers.IO) {
             mainViewModel.getListOfMarksByCategory(id.trim(','))
-        }
+        }*/
 
-        for (cat in currentCategories) {
+        /*for (cat in currentCategories) {
             mainViewModel.currentCategories[cat.key] = cat.value
             if (cat.value)
                 mainViewModel.filter = true
-        }
+        }*/
 
-        val fragment2 = childFragmentManager.fragments.get(R.id.catalogMenuItem)
+        // val fragment2 = childFragmentManager.fragments.get(R.id.catalogMenuItem)
+        mainViewModel.filterMarksByCategory()
+        mainViewModel.updateChosenCategories()
         Toast.makeText(context, "", Toast.LENGTH_LONG).show()
         //refreshFragment(context, fragment2)
 
