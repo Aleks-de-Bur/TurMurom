@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/authorization_nav"
+    app:startDestination="@id/profileMenuItem">
+
+    <fragment
+        android:id="@+id/userDetailsFragment"
+        android:name="com.example.turmurom.userDetails.UserDetailsFragment"
+        android:label="UserDetailsFragment" />
+
+    <fragment
+        android:id="@+id/profileMenuItem"
+        android:name="com.example.turmurom.login.LogInFragment"
+        android:label="@string/authorization"
+        tools:layout="@layout/fragment_log_in">
+        <action
+            android:id="@+id/action_profileMenuItem_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_profileMenuItem_to_userDetailsFragment"
+            app:destination="@id/userDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.turmurom.register.RegisterFragment"
+        android:label="@string/registration"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_profileMenuItem"
+            app:destination="@id/profileMenuItem" />
+    </fragment>
+
+</navigation>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:showIn="navigation_view">
+        <item
+            android:id="@+id/mapMenuItem"
+            android:icon="@drawable/map_24"
+            android:title="@string/mapMenuItem" />
+        <item
+            android:id="@+id/catalogMenuItem"
+            android:icon="@drawable/map_24"
+            android:title="@string/catalogMenuItem" />
+        <item
+            android:id="@+id/routesMenuItem"
+            android:icon="@drawable/routes_24"
+            android:title="@string/routesMenuItem" />
+
+        <item
+            android:id="@+id/guidesMenuItem"
+            android:icon="@drawable/guides_24"
+            android:title="@string/guidesMenuItem" />
+        <item
+            android:id="@+id/excursionsMenuItem"
+            android:icon="@drawable/excursions_24"
+            android:title="@string/excursionsMenuItem" />
+
+        <item
+            android:id="@+id/profileMenuItem"
+            android:icon="@drawable/profile_24"
+            android:title="@string/profileMenuItem" />
+        <item
+            android:id="@+id/electedMenuItem"
+            android:icon="@drawable/star_border_24"
+            android:title="@string/electedMenuItem" />
+        <item
+            android:id="@+id/visitedMenuItem"
+            android:icon="@drawable/check_24"
+            android:title="@string/visitedMenuItem" />
+<!--    <item android:id="@+id/search"-->
+<!--        android:title="@string/search"-->
+<!--        android:icon="@drawable/search_24"-->
+<!--        app:showAsAction="always|collapseActionView"-->
+<!--        app:actionViewClass="androidx.appcompat.widget.SearchView" />-->
+</menu>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/mapMenuItem">
+
+    <fragment
+        android:id="@+id/mapMenuItem"
+        android:name="com.example.turmurom.fragments.MapFragment"
+        android:label="@string/mapMenuItem"
+        tools:layout="@layout/fragment_map">
+<!--        <action-->
+<!--            android:id="@+id/action_mapMenuItem_to_catalogMenuItem"-->
+<!--            app:destination="@id/catalogMenuItem" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_mapMenuItem_to_guidesMenuItem"-->
+<!--            app:destination="@id/guidesMenuItem" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_mapMenuItem_to_routesMenuItem"-->
+<!--            app:destination="@id/routesMenuItem" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_mapMenuItem_to_excursionsMenuItem"-->
+<!--            app:destination="@id/excursionsMenuItem" />-->
+        <action
+            android:id="@+id/action_mapMenuItem_to_routesMenuItem"
+            app:destination="@id/routesMenuItem" />
+    </fragment>
+    <fragment
+        android:id="@+id/catalogMenuItem"
+        android:name="com.example.turmurom.fragments.CatalogFragment"
+        android:label="@string/catalogMenuItem"
+        tools:layout="@layout/fragment_catalog">
+        <action
+            android:id="@+id/action_catalogMenuItem_to_excursionsMenuItem"
+            app:destination="@id/excursionsMenuItem" />
+        <action
+            android:id="@+id/action_catalogMenuItem_to_guidesMenuItem"
+            app:destination="@id/guidesMenuItem" />
+        <action
+            android:id="@+id/action_catalogMenuItem_to_routesMenuItem"
+            app:destination="@id/routesMenuItem" />
+        <action
+            android:id="@+id/action_catalogMenuItem_to_catalogItemFragment"
+            app:destination="@id/catalogItemFragment" />
+        <action
+            android:id="@+id/action_catalogMenuItem_to_scheduleFragment"
+            app:destination="@id/scheduleFragment" />
+        <action
+            android:id="@+id/action_catalogMenuItem_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/excursionsMenuItem"
+        android:name="com.example.turmurom.fragments.ExcursionFragment"
+        android:label="@string/excursionsMenuItem"
+        tools:layout="@layout/fragment_excursion">
+        <action
+            android:id="@+id/action_excursionsMenuItem_to_excursionDetailsFragment"
+            app:destination="@id/excursionDetailsFragment" />
+        <action
+            android:id="@+id/action_excursionsMenuItem_to_catalogMenuItem"
+            app:destination="@id/catalogMenuItem" />
+        <action
+            android:id="@+id/action_excursionsMenuItem_to_guidesMenuItem"
+            app:destination="@id/guidesMenuItem" />
+        <action
+            android:id="@+id/action_excursionsMenuItem_to_routesMenuItem"
+            app:destination="@id/routesMenuItem" />
+    </fragment>
+    <fragment
+        android:id="@+id/guidesMenuItem"
+        android:name="com.example.turmurom.fragments.GuidesFragment"
+        android:label="@string/guidesMenuItem"
+        tools:layout="@layout/fragment_guides" >
+        <action
+            android:id="@+id/action_guidesMenuItem_to_catalogMenuItem"
+            app:destination="@id/catalogMenuItem" />
+        <action
+            android:id="@+id/action_guidesMenuItem_to_excursionsMenuItem"
+            app:destination="@id/excursionsMenuItem" />
+        <action
+            android:id="@+id/action_guidesMenuItem_to_routesMenuItem"
+            app:destination="@id/routesMenuItem" />
+        <action
+            android:id="@+id/action_guidesMenuItem_to_guideDetailsFragment"
+            app:destination="@id/guideDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/routesMenuItem"
+        android:name="com.example.turmurom.fragments.RoutesFragment"
+        android:label="@string/routesMenuItem"
+        tools:layout="@layout/fragment_routes">
+        <action
+            android:id="@+id/action_routesMenuItem_to_catalogMenuItem"
+            app:destination="@id/catalogMenuItem" />
+        <action
+            android:id="@+id/action_routesMenuItem_to_excursionsMenuItem"
+            app:destination="@id/excursionsMenuItem" />
+        <action
+            android:id="@+id/action_routesMenuItem_to_guidesMenuItem"
+            app:destination="@id/guidesMenuItem" />
+        <action
+            android:id="@+id/action_routesMenuItem_to_routeDetailsFragment"
+            app:destination="@id/routeDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/excursionDetailsFragment"
+        android:name="com.example.turmurom.fragments.ExcursionDetailsFragment"
+        android:label="@string/excursionItem"
+        tools:layout="@layout/fragment_excursion_details" />
+<!--    <fragment-->
+<!--        android:id="@+id/profileMenuItem"-->
+<!--        android:name="com.example.turmurom.login.LogInFragment"-->
+<!--        android:label="@string/authorization"-->
+<!--        tools:layout="@layout/fragment_log_in">-->
+<!--        <action-->
+<!--            android:id="@+id/action_profileMenuItem_to_registerFragment"-->
+<!--            app:destination="@id/registerFragment" />-->
+<!--    </fragment>-->
+<!--    <fragment-->
+<!--        android:id="@+id/btnSignUp"-->
+<!--        android:name="com.example.turmurom.fragments.SignUpFragment"-->
+<!--        android:label="@string/registration"-->
+<!--        tools:layout="@layout/fragment_sign_up" >-->
+<!--        <action-->
+<!--            android:id="@+id/action_btnSignUp_to_btnLogIn"-->
+<!--            app:destination="@id/btnLogIn" />-->
+<!--    </fragment>-->
+    <fragment
+        android:id="@+id/profileMenuItem"
+        android:name="com.example.turmurom.fragments.PersonalAccountFragment"
+        android:label="@string/personalAccount"
+        tools:layout="@layout/fragment_personal_account" />
+    <fragment
+        android:id="@+id/catalogItemFragment"
+        android:name="com.example.turmurom.fragments.CatalogItemFragment"
+        android:label="@string/catalogItem"
+        tools:layout="@layout/fragment_catalog_item" >
+        <action
+            android:id="@+id/action_catalogItemFragment_to_scheduleFragment"
+            app:destination="@id/scheduleFragment" />
+        <action
+            android:id="@+id/action_catalogItemFragment_to_categoryFilterFragment"
+            app:destination="@id/categoryFilterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/guideDetailsFragment"
+        android:name="com.example.turmurom.fragments.GuideDetailsFragment"
+        android:label="@string/guideItem"
+        tools:layout="@layout/fragment_guide_details" >
+        <action
+            android:id="@+id/action_guideDetailsFragment_to_excursionDetailsFragment"
+            app:destination="@id/excursionDetailsFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/scheduleFragment"
+        android:name="com.example.turmurom.fragments.ScheduleFragment"
+        android:label="fragment_schedule"
+        tools:layout="@layout/fragment_schedule" >
+        <action
+            android:id="@+id/action_scheduleFragment_to_catalogItemFragment"
+            app:destination="@id/catalogItemFragment" />
+        <action
+            android:id="@+id/action_scheduleFragment_to_catalogMenuItem"
+            app:destination="@id/catalogMenuItem" />
+    </dialog>
+    <fragment
+        android:id="@+id/routeDetailsFragment"
+        android:name="com.example.turmurom.fragments.RouteDetailsFragment"
+        android:label="@string/routeItem"
+        tools:layout="@layout/fragment_route_details" />
+    <dialog
+        android:id="@+id/searchFragment"
+        android:name="com.example.turmurom.fragments.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_catalogMenuItem"
+            app:destination="@id/catalogMenuItem" />
+    </dialog>
+    <dialog
+        android:id="@+id/categoryFilterFragment"
+        android:name="com.example.turmurom.fragments.CategoryFilterFragment"
+        android:label="fragment_category_filter"
+        tools:layout="@layout/fragment_category_filter" >
+        <action
+            android:id="@+id/action_categoryFilterFragment_to_catalogItemFragment"
+            app:destination="@id/catalogItemFragment" />
+    </dialog>
+    <!--    <fragment-->
+<!--        android:id="@+id/registerFragment"-->
+<!--        android:name="com.example.turmurom.register.RegisterFragment"-->
+<!--        android:label="@string/registration"-->
+<!--        tools:layout="@layout/fragment_register" >-->
+<!--        <action-->
+<!--            android:id="@+id/action_registerFragment_to_profileMenuItem"-->
+<!--            app:destination="@id/profileMenuItem" />-->
+<!--    </fragment>-->
+<!--    <fragment-->
+<!--        android:id="@+id/userDetailsFragment"-->
+<!--        android:name="com.example.turmurom.userDetails.UserDetailsFragment"-->
+<!--        android:label="UserDetailsFragment" />-->
+</navigation>

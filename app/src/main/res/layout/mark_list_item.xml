@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/markItemCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:backgroundTint="@color/listItemBackground"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imPhoto"
+            android:layout_width="0dp"
+            android:layout_height="125dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_launcher_foreground"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Длинное название точки"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/imPhoto"
+            app:layout_constraintTop_toBottomOf="@+id/imPhoto" />
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="Днинное длинное описание"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toStartOf="@+id/relLay"
+            app:layout_constraintStart_toStartOf="@+id/tvTitle"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+        <RelativeLayout
+            android:id="@+id/relLay"
+            android:layout_width="35dp"
+            android:layout_height="0dp"
+            android:background="@color/purple_500"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imPhoto"
+            app:layout_constraintTop_toBottomOf="@+id/imPhoto">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvCategory"
+                                style="@style/CategoryText"
+                                android:rotation="-90"
+                                android:paddingBottom="8dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@color/purple_500"
+                                android:gravity="center"
+                                android:text="Пук"/>
+
+
+                </LinearLayout>
+            </HorizontalScrollView>
+        </RelativeLayout>
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/tvCategory"-->
+        <!--            style="@style/CategoryText"-->
+        <!--            android:layout_width="35dp"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            android:background="@color/purple_500"-->
+        <!--            android:gravity="center"-->
+        <!--            android:text="П"-->
+
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="@+id/imPhoto"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/imPhoto" />-->
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnGo"
+            style="@style/ButtonReg"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/btnGo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tvDescription"
+            app:layout_constraintStart_toEndOf="@+id/btnInfo"
+            app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSchedule"
+            style="@style/ButtonSchedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btnSchedule"
+            app:icon="@drawable/schedule_24"
+            app:iconGravity="top"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvDescription"
+            app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnInfo"
+            style="@style/ButtonSchedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/btnInfo"
+            app:icon="@drawable/info_24"
+            app:iconGravity="top"
+            app:layout_constraintBottom_toBottomOf="@+id/btnSchedule"
+            app:layout_constraintStart_toEndOf="@+id/btnSchedule"
+            app:layout_constraintTop_toTopOf="@+id/btnSchedule" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
