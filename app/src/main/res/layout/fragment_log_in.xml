@@ -92,7 +92,8 @@
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
                         android:text="@={myLoginViewModel.inputPassword}"
-                        android:maxLength="20" />
+                        android:maxLength="20"
+                        android:textColor="@color/white"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
 

@@ -98,17 +98,17 @@ class RegisterViewModel(private val repository: RegisterRepository, application:
 
     fun doneNavigating() {
         _navigateto.value = false
-        Log.i("MYTAG", "Done navigating ")
+        //Log.i("MYTAG", "Done navigating ")
     }
 
     fun donetoast() {
         _errorToast.value = false
-        Log.i("MYTAG", "Done taoasting ")
+        //Log.i("MYTAG", "Done toasting ")
     }
 
     fun donetoastUserName() {
         _errorToast.value = false
-        Log.i("MYTAG", "Done taoasting username")
+        //Log.i("MYTAG", "Done taoasting username")
     }
 
     private fun insert(user: RegisterEntity): Job = viewModelScope.launch {
