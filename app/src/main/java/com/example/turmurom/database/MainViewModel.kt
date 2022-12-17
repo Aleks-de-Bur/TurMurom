@@ -26,7 +26,7 @@ class MainViewModel(database: MainDb) : ViewModel() {
     lateinit var allExcursionPhotosById: List<ExcursionPhoto>
     lateinit var allSchedule: LiveData<List<Schedule>>
     val allRoutes: LiveData<List<Route>> = routeDao.getAllRoutes().asLiveData()
-    val allMarks: LiveData<List<Mark>> = markDao.getAllMarks().asLiveData()
+    //val allMarks: LiveData<List<Mark>> = markDao.getAllMarks().asLiveData()
     var allMarksForRoute: MutableList<Mark> = mutableListOf()
     lateinit var allRouteMarksById: List<RouteMarks>
     lateinit var allMarkPhotosById: List<MarkPhoto>
@@ -126,6 +126,8 @@ class MainViewModel(database: MainDb) : ViewModel() {
             } else {
                 allMarksByCategory.value = marks.filter { currentCategories[it.categoryId] == true }
             }
+
+
         }
     }
 
