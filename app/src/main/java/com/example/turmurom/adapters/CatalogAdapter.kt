@@ -11,28 +11,28 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.turmurom.R
-import com.example.turmurom.database.models.Excursion
-import com.example.turmurom.database.models.Mark
+import com.example.turmurom.database.models.MarksWithPhotos
 import com.example.turmurom.databinding.MarkListItemBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class CatalogAdapter(val catalogListener: CatalogListener) :
-    ListAdapter<Mark, CatalogAdapter.Holder>(Comparator()) {
+    ListAdapter<MarksWithPhotos, CatalogAdapter.Holder>(Comparator()) {
 
     //Заполнение разметки
     class Holder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = MarkListItemBinding.bind(view)
-        fun bind(item: Mark, catalogListener: CatalogListener) = with(binding) {
-            tvTitle.text = item.title
-            tvDescription.text = item.description
+        fun bind(item: MarksWithPhotos, catalogListener: CatalogListener) = with(binding) {
+            tvTitle.text = item.mark.title
+            tvDescription.text = item.mark.description
 
             //tvCategory.text = "${item.category[0]}${item.category[1]}${item.category[2]}"
-            tvCategory.text = "${catalogListener.getCategory(item.categoryId)[0]}" +
-                    "${catalogListener.getCategory(item.categoryId)[1]}" +
-                    "${catalogListener.getCategory(item.categoryId)[2]}"
+            tvCategory.text = "${catalogListener.getCategory(item.mark.categoryId)[0]}" +
+                    "${catalogListener.getCategory(item.mark.categoryId)[1]}" +
+                    "${catalogListener.getCategory(item.mark.categoryId)[2]}"
 
-            //imPhoto.setImageURI(Uri.parse("android.resource://com.example.turmurom/raw/" + catalogListener.getPhoto(item)))
+            if(item.markPhotos.isEmpty())
+                imPhoto.setImageURI(Uri.parse("android.resource://com.example.turmurom/raw/main_photo"))
+            else
+                imPhoto.setImageURI(Uri.parse("android.resource://com.example.turmurom/raw/" + item.markPhotos.get(0).pathPhoto))
 
             itemView.setOnClickListener {
                 catalogListener.onClick(item)
@@ -49,13 +49,13 @@ class CatalogAdapter(val catalogListener: CatalogListener) :
         }
     }
 
-    class Comparator : DiffUtil.ItemCallback<Mark>() {
-        override fun areItemsTheSame(oldItem: Mark, newItem: Mark): Boolean {
-            return oldItem.id == newItem.id
+    class Comparator : DiffUtil.ItemCallback<MarksWithPhotos>() {
+        override fun areItemsTheSame(oldItem: MarksWithPhotos, newItem: MarksWithPhotos): Boolean {
+            return oldItem.mark.id == newItem.mark.id
         }
 
-        override fun areContentsTheSame(oldItem: Mark, newItem: Mark): Boolean {
-            return oldItem.id == newItem.id
+        override fun areContentsTheSame(oldItem: MarksWithPhotos, newItem: MarksWithPhotos): Boolean {
+            return oldItem.mark.id == newItem.mark.id
         }
 
     }
@@ -71,20 +71,20 @@ class CatalogAdapter(val catalogListener: CatalogListener) :
     }
 
     interface CatalogListener {
-        fun onClick(mark: Mark) {
+        fun onClick(marksWithPhotos: MarksWithPhotos) {
             Navigation.createNavigateOnClickListener(R.id.catalogItemFragment, null)
         }
 
-        fun onClickSchedule(mark: Mark) {
+        fun onClickSchedule(marksWithPhotos: MarksWithPhotos) {
 
         }
         fun onClickSearch() {
 
         }
 
-        fun getPhoto(mark: Mark) : String {
-            return "1"
-        }
+//        fun getPhoto(mark: MarksWithPhotos) : String {
+//            return "1"
+//        }
 
         fun getCategory(id: Int) : String {
             return "Категория"

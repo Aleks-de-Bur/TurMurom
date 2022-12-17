@@ -17,6 +17,7 @@ import com.example.turmurom.adapters.CategoryFilterAdapter
 import com.example.turmurom.database.MainViewModel
 import com.example.turmurom.database.models.Category
 import com.example.turmurom.database.models.Mark
+import com.example.turmurom.database.models.MarksWithPhotos
 import com.example.turmurom.databinding.CategoryListItemBinding
 import com.example.turmurom.databinding.FragmentCatalogBinding
 import kotlinx.coroutines.Dispatchers
@@ -82,17 +83,17 @@ class CatalogFragment : Fragment(), CatalogAdapter.CatalogListener,
         fun newInstance() = CatalogFragment
     }
 
-    override fun onClick(mark: Mark) {
-        mainViewModel.markId.value = mark
+    override fun onClick(marksWithPhotos: MarksWithPhotos) {            //Подумать над получением фото
+        mainViewModel.markId.value = marksWithPhotos.mark
         lifecycleScope.launch(Dispatchers.IO) {
-            mainViewModel.selectMarkPhotosById(mark.id!!)
+            mainViewModel.selectMarkPhotosById(marksWithPhotos.mark.id!!)
         }
         Navigation.findNavController(requireView()).navigate(R.id.catalogItemFragment)
     }
 
-    override fun onClickSchedule(mark: Mark) {
+    override fun onClickSchedule(marksWithPhotos: MarksWithPhotos) {
         lifecycleScope.launch(Dispatchers.IO) {
-            mainViewModel.selectScheduleForMark(mark.id!!)
+            mainViewModel.selectScheduleForMark(marksWithPhotos.mark.id!!)
         }
         Navigation.findNavController(requireView()).navigate(R.id.scheduleFragment)
     }
@@ -101,15 +102,15 @@ class CatalogFragment : Fragment(), CatalogAdapter.CatalogListener,
         Navigation.findNavController(requireView()).navigate(R.id.searchFragment)
     }
 
-    override fun getPhoto(mark: Mark): String {
-        lifecycleScope.launch(Dispatchers.IO) {
-            val photo = mainViewModel.selectMarkPhoto(mark.id!!)
-            activity?.runOnUiThread() {
-                mainViewModel.markPhoto.value = photo
-            }
-        }
-        return mainViewModel.markPhoto.value!!.pathPhoto
-    }
+//    override fun getPhoto(mark: Mark): String {
+//        lifecycleScope.launch(Dispatchers.IO) {
+//            val photo = mainViewModel.selectMarkPhoto(mark.id!!)
+//            activity?.runOnUiThread() {
+//                mainViewModel.markPhoto.value = photo
+//            }
+//        }
+//        return mainViewModel.markPhoto.value!!.pathPhoto
+//    }
 
     /**
      * Переопределение листенера при клике на фильтр

@@ -3,6 +3,7 @@ package com.example.turmurom.database.dao
 import androidx.room.*
 import com.example.turmurom.database.models.Category
 import com.example.turmurom.database.models.Mark
+import com.example.turmurom.database.models.MarksWithPhotos
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -15,6 +16,10 @@ interface MarkDao {
      */
     @Query("SELECT * FROM Marks")
     suspend fun getAllMarksSuspend(): List<Mark>
+
+    @Transaction
+    @Query("SELECT * FROM Marks")
+    suspend fun getAllMarksWithPhotos(): List<MarksWithPhotos>
 
     @Query("SELECT * FROM Categories")
     fun getAllCategories(): Flow<List<Category>>

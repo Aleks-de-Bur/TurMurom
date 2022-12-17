@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "75da07bb3a92b8e1add7f506f51bee63",
+    "identityHash": "de79b32bee7ae984f3a6a110a166e90e",
     "entities": [
       {
         "tableName": "Marks",
@@ -292,7 +292,17 @@
           ],
           "autoGenerate": true
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_MarkPhotos_MarkId",
+            "unique": false,
+            "columnNames": [
+              "MarkId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_MarkPhotos_MarkId` ON `${TABLE_NAME}` (`MarkId`)"
+          }
+        ],
         "foreignKeys": [
           {
             "table": "Marks",
@@ -716,7 +726,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '75da07bb3a92b8e1add7f506f51bee63')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'de79b32bee7ae984f3a6a110a166e90e')"
     ]
   }
 }

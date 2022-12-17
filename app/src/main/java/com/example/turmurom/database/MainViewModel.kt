@@ -30,7 +30,9 @@ class MainViewModel(database: MainDb) : ViewModel() {
     var allMarksForRoute: MutableList<Mark> = mutableListOf()
     lateinit var allRouteMarksById: List<RouteMarks>
     lateinit var allMarkPhotosById: List<MarkPhoto>
-    val allMarksByCategory: MutableLiveData<List<Mark>> = MutableLiveData()
+    val allMarksByCategory: MutableLiveData<List<MarksWithPhotos>> = MutableLiveData()
+    val markPhoto : MutableLiveData<MarkPhoto> = MutableLiveData()
+
     val allGuides: LiveData<List<Guide>> = guideDao.getAll().asLiveData()
 
     /**
@@ -62,9 +64,9 @@ class MainViewModel(database: MainDb) : ViewModel() {
     val excursionPhoto: MutableLiveData<ExcursionPhoto> by lazy {
         MutableLiveData<ExcursionPhoto>()
     }
-    val markPhoto: MutableLiveData<MarkPhoto> by lazy {
-        MutableLiveData<MarkPhoto>()
-    }
+//    val markPhoto: MutableLiveData<MarkPhoto> by lazy {
+//        MutableLiveData<MarkPhoto>()
+//    }
 //    val currentUser: MutableLiveData<RegisterEntity> by lazy {
 //        MutableLiveData<RegisterEntity>()
 //    }
@@ -120,14 +122,14 @@ class MainViewModel(database: MainDb) : ViewModel() {
      */
     fun filterMarksByCategory() {
         viewModelScope.launch {
-            val marks = markDao.getAllMarksSuspend()
+            val marks = markDao.getAllMarksWithPhotos()
             if (currentCategories.all { !it.value }) {
                 allMarksByCategory.value = marks
             } else {
-                allMarksByCategory.value = marks.filter { currentCategories[it.categoryId] == true }
+                allMarksByCategory.value = marks.filter { currentCategories[it.mark.categoryId] == true }
             }
 
-
+//            markPhoto.value = markPhotoDao.getMarkPhotoById()
         }
     }
 

@@ -8,14 +8,14 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "MarkPhotos",
     foreignKeys = [ForeignKey(
         entity = Mark::class,
-        childColumns = ["MarkId"],
-        parentColumns = ["id"],
+        parentColumns = arrayOf("id"),
+        childColumns = arrayOf("MarkId"),
         onDelete = ForeignKey.CASCADE                  //Каскадное удаление
     )])
 data class MarkPhoto (
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null,
-    @ColumnInfo(name = "MarkId")
+    @ColumnInfo(name = "MarkId", index = true)
     var markId: Int,
     @ColumnInfo(name = "Photo")
     var pathPhoto: String
