@@ -24,7 +24,6 @@ class CategoryFilterFragment : BottomSheetDialogFragment(),
     CategoryFilterAdapter.CategoryFilterListener {
 
     private lateinit var binding: FragmentCategoryFilterBinding
-    private lateinit var bindingRcView: CategoryListItemBinding
     private lateinit var adapter: CategoryFilterAdapter
 
     private val mainViewModel: MainViewModel by activityViewModels {
@@ -38,9 +37,6 @@ class CategoryFilterFragment : BottomSheetDialogFragment(),
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCategoryFilterBinding.inflate(inflater, container, false)
-//        for(cat in mainViewModel.dictOfCategories){
-//            currentCategories[cat.key] = false
-//        }
         for (cat in mainViewModel.currentCategories) {
             currentCategories[cat.key] = cat.value
         }
@@ -49,9 +45,6 @@ class CategoryFilterFragment : BottomSheetDialogFragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        mainViewModel.dictOfCategories.forEach{
-//            currentCategories[it.key] = false
-//        }
         initRcView()
         observer()
         binding.btnSubmit.setOnClickListener {
@@ -87,12 +80,6 @@ class CategoryFilterFragment : BottomSheetDialogFragment(),
     override fun onClick(category: Category, binding: CategoryListItemBinding) {
 
         currentCategories[category.id!!] = !currentCategories[category.id!!]!!
-
-//        if(currentCategories[category.id!!] == true)
-//            binding.layout.setBackgroundColor(resources.getColor(R.color.currentCategory))
-//        else
-//            binding.layout.setBackgroundColor(resources.getColor(R.color.transparent))
-
         coloringCategoryItems(category, binding)
 
     }
@@ -111,44 +98,16 @@ class CategoryFilterFragment : BottomSheetDialogFragment(),
     }
 
     private fun onSubmit() {
-        var id = ""
         for (key in currentCategories.keys) {
             mainViewModel.currentCategories[key] = currentCategories[key]!!
         }
-
-        /*lifecycleScope.launch(Dispatchers.IO) {
-            mainViewModel.getListOfMarksByCategory(id.trim(','))
-        }*/
-
-        /*for (cat in currentCategories) {
-            mainViewModel.currentCategories[cat.key] = cat.value
-            if (cat.value)
-                mainViewModel.filter = true
-        }*/
-
-        // val fragment2 = childFragmentManager.fragments.get(R.id.catalogMenuItem)
         mainViewModel.filterMarksByCategory()
         mainViewModel.updateChosenCategories()
-        Toast.makeText(context, "", Toast.LENGTH_LONG).show()
-        //refreshFragment(context, fragment2)
+        //Toast.makeText(context, "", Toast.LENGTH_LONG).show()
 
         dismiss()
     }
 
-    fun refreshFragment(context: Context?, fragment2: Fragment?) {
-        context.let {
-            val fragmentManager = (context as? AppCompatActivity)?.supportFragmentManager
-            fragmentManager?.let {
-                val currentFragment = fragmentManager.findFragmentById(R.id.categoryFilterFragment)
-                fragment2?.let {
-                    val fragmentTransaction = fragmentManager.beginTransaction()
-                    fragmentTransaction.detach(it)
-                    fragmentTransaction.attach(it)
-                    fragmentTransaction.commit()
-                }
-            }
-        }
-    }
 
     companion object {
         @JvmStatic

@@ -51,8 +51,7 @@ class CategoryFilterAdapter(val categoryFilterListener: CategoryFilterListener) 
     interface CategoryFilterListener {
         @SuppressLint("ResourceAsColor")
         fun onClick(category: Category, binding: CategoryListItemBinding) {
-//            binding.layout.setBackgroundColor(R.color.currentCategory)
-            //Navigation.createNavigateOnClickListener(R.id.catalogItemFragment, null)
+
         }
 
         fun coloringCategoryItems(category: Category, binding: CategoryListItemBinding){

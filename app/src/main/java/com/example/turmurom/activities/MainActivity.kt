@@ -2,7 +2,6 @@ package com.example.turmurom.activities
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -28,8 +27,6 @@ import com.example.turmurom.database.MainViewModel
 import com.example.turmurom.databinding.ActivityMainBinding
 import com.example.turmurom.preference.SharedPreference
 import com.yandex.mapkit.MapKitFactory
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private lateinit var binding: ActivityMainBinding
@@ -81,9 +78,6 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         setupActionBarWithNavController(navController, conf)
         binding.navView.setupWithNavController(navController)
 
-        //Подключение к базе данных
-        //val db = MainDb.getDB(this)
-
 //        selfLocation = binding.btnLocation
 //        mapview = binding.mapview
 //        mapview.map.move(CameraPosition(Point(55.579174, 42.052411), 11.0f, 0.0f, 0.0f),
@@ -98,12 +92,8 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 //        }
 
 
-
-
-
-
-        mainViewModel.allCategories.observe(this){
-            it.forEach{
+        mainViewModel.allCategories.observe(this) {
+            it.forEach {
                 mainViewModel.addCategory(it.id!!, it.title)
             }
             mainViewModel.getCurrentCategories()
@@ -114,15 +104,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                 if (mainViewModel.currentCategories[category.key] == true)
                     id += category.key
             }
-
-            /*lifecycleScope.launch(Dispatchers.IO) {
-                mainViewModel.getListOfMarksByCategory()
-            }*/
-
-
         }
-
-
     }
 
     override fun onSupportNavigateUp(): Boolean {

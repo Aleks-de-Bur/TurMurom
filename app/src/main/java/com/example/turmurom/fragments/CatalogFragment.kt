@@ -37,9 +37,6 @@ class CatalogFragment : Fragment(), CatalogAdapter.CatalogListener,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCatalogBinding.inflate(inflater, container, false)
-
-
-
         return binding.root
     }
 
@@ -48,7 +45,6 @@ class CatalogFragment : Fragment(), CatalogAdapter.CatalogListener,
         initRcView()
         initRcViewCategories()
         observer()
-        //mainViewModel.getCurrentCategories()
         binding.imageButton.setOnClickListener {
             Navigation.findNavController(requireView()).navigate(R.id.categoryFilterFragment)
         }
@@ -79,15 +75,6 @@ class CatalogFragment : Fragment(), CatalogAdapter.CatalogListener,
             viewLifecycleOwner,
             catalogFilterAdapter::submitList
         )
-//        if (mainViewModel.filter) {
-//            mainViewModel.allMarksByCategory.observe(viewLifecycleOwner, {
-//                adapter.submitList(it)
-//            })
-//        } else {
-//            mainViewModel.allMarks.observe(viewLifecycleOwner, {
-//                adapter.submitList(it)
-//            })
-//        }
     }
 
     companion object {
