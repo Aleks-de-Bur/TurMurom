@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "de79b32bee7ae984f3a6a110a166e90e",
+    "identityHash": "f3625d63b780b26a40a23872588ea3dc",
     "entities": [
       {
         "tableName": "Marks",
@@ -490,7 +490,7 @@
       },
       {
         "tableName": "Identity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `LastName` TEXT NOT NULL, `FirstName` TEXT NOT NULL, `Login` TEXT NOT NULL, `Email` TEXT NOT NULL, `Password` TEXT NOT NULL, `Photo` TEXT DEFAULT 'res/mipmap-hdpi/example_icon.png')",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `LastName` TEXT NOT NULL, `FirstName` TEXT NOT NULL, `Login` TEXT NOT NULL, `Email` TEXT NOT NULL, `Password` TEXT NOT NULL, `Photo` TEXT DEFAULT 'main_photo')",
         "fields": [
           {
             "fieldPath": "id",
@@ -533,7 +533,7 @@
             "columnName": "Photo",
             "affinity": "TEXT",
             "notNull": false,
-            "defaultValue": "'res/mipmap-hdpi/example_icon.png'"
+            "defaultValue": "'main_photo'"
           }
         ],
         "primaryKey": {
@@ -627,7 +627,7 @@
       },
       {
         "tableName": "UserElected",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `UserId` INTEGER NOT NULL, `MarkId` INTEGER NOT NULL, `Elected` INTEGER NOT NULL, FOREIGN KEY(`UserId`) REFERENCES `Identity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`MarkId`) REFERENCES `Marks`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `UserId` INTEGER NOT NULL, `MarkId` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -646,12 +646,6 @@
             "columnName": "MarkId",
             "affinity": "INTEGER",
             "notNull": true
-          },
-          {
-            "fieldPath": "elected",
-            "columnName": "Elected",
-            "affinity": "INTEGER",
-            "notNull": true
           }
         ],
         "primaryKey": {
@@ -661,30 +655,7 @@
           "autoGenerate": true
         },
         "indices": [],
-        "foreignKeys": [
-          {
-            "table": "Identity",
-            "onDelete": "CASCADE",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "UserId"
-            ],
-            "referencedColumns": [
-              "id"
-            ]
-          },
-          {
-            "table": "Marks",
-            "onDelete": "CASCADE",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "MarkId"
-            ],
-            "referencedColumns": [
-              "id"
-            ]
-          }
-        ]
+        "foreignKeys": []
       },
       {
         "tableName": "Categories",
@@ -726,7 +697,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'de79b32bee7ae984f3a6a110a166e90e')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f3625d63b780b26a40a23872588ea3dc')"
     ]
   }
 }

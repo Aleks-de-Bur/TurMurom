@@ -8,6 +8,8 @@
         <entry key="..\:/Course/TurMurom/app/src/main/res/drawable/bottom_menu_selector.xml" value="0.2675" />
         <entry key="..\:/Course/TurMurom/app/src/main/res/drawable/btn_go_24.xml" value="0.233" />
         <entry key="..\:/Course/TurMurom/app/src/main/res/drawable/check_24.xml" value="0.233" />
+        <entry key="..\:/Course/TurMurom/app/src/main/res/drawable/elect_50.xml" value="0.395" />
+        <entry key="..\:/Course/TurMurom/app/src/main/res/drawable/elected_24.xml" value="0.395" />
         <entry key="..\:/Course/TurMurom/app/src/main/res/drawable/email_24.xml" value="0.233" />
         <entry key="..\:/Course/TurMurom/app/src/main/res/drawable/example_icon_background.xml" value="0.4035" />
         <entry key="..\:/Course/TurMurom/app/src/main/res/drawable/excursions_24.xml" value="0.233" />
@@ -60,6 +62,7 @@
         <entry key="..\:/Course/TurMurom/app/src/main/res/layout/fragment_schedule.xml" value="0.4041666666666667" />
         <entry key="..\:/Course/TurMurom/app/src/main/res/layout/fragment_search.xml" value="0.30597014925373134" />
         <entry key="..\:/Course/TurMurom/app/src/main/res/layout/fragment_sign_up.xml" value="0.4041666666666667" />
+        <entry key="..\:/Course/TurMurom/app/src/main/res/layout/fragment_user_elected.xml" value="0.4041666666666667" />
         <entry key="..\:/Course/TurMurom/app/src/main/res/layout/guide_list_item.xml" value="0.4041666666666667" />
         <entry key="..\:/Course/TurMurom/app/src/main/res/layout/header.xml" value="0.4041666666666667" />
         <entry key="..\:/Course/TurMurom/app/src/main/res/layout/list_item.xml" value="0.4041666666666667" />

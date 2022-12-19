@@ -188,6 +188,11 @@
             android:id="@+id/action_categoryFilterFragment_to_catalogItemFragment"
             app:destination="@id/catalogItemFragment" />
     </dialog>
+    <fragment
+        android:id="@+id/electedMenuItem"
+        android:name="com.example.turmurom.fragments.UserElectedFragment"
+        android:label="Избранное"
+        tools:layout="@layout/fragment_user_elected" />
     <!--    <fragment-->
 <!--        android:id="@+id/registerFragment"-->
 <!--        android:name="com.example.turmurom.register.RegisterFragment"-->

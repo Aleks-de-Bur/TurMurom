@@ -2,6 +2,7 @@ package com.example.turmurom.database.dao
 
 import androidx.room.*
 import com.example.turmurom.database.models.Category
+import com.example.turmurom.database.models.ElectedMarks
 import com.example.turmurom.database.models.Mark
 import com.example.turmurom.database.models.MarksWithPhotos
 import kotlinx.coroutines.flow.Flow
@@ -21,6 +22,16 @@ interface MarkDao {
     @Query("SELECT * FROM Marks")
     suspend fun getAllMarksWithPhotos(): List<MarksWithPhotos>
 
+    @Transaction
+    @Query("Select bc.id, bc.Title, bc.Description, ef.id AS CategoryId, ef.Title AS Category, bc.Address, CASE WHEN ab.Photo " +
+            "IS NOT NULL THEN (SELECT phot.Photo FROM MarkPhotos phot WHERE phot.MarkId = bc.id) END Photo " +
+            "From MarkPhotos ab INNER JOIN Marks bc ON ab.MarkId = bc.id " +
+            "INNER JOIN UserElected cd ON cd.MarkId = bc.id " +
+            "INNER JOIN Identity de ON cd.UserId = de.id " +
+            "INNER JOIN Categories ef ON ef.id = bc.CategoryId WHERE de.id = :userId " +
+            "GROUP BY bc.id, bc.Title, bc.Description, ef.Title, bc.Address")
+    suspend fun getElectedMarksWithPhoto(userId: Int): List<ElectedMarks>
+
     @Query("SELECT * FROM Categories")
     fun getAllCategories(): Flow<List<Category>>
 
@@ -28,7 +39,7 @@ interface MarkDao {
     fun getMarkByCategoryId(categoryIds: String): Flow<List<Mark>>
 
     @Query("SELECT * FROM Marks WHERE id = :id")
-    fun getMarkById(id: Int): Mark?
+    fun getMarkById(id: Int): Mark
 
     @Query("SELECT * FROM Marks WHERE Title = :searchQuery")
     fun searchMark(searchQuery: String): Flow<List<Mark>>

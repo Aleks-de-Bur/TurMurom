@@ -2,10 +2,12 @@ package com.example.turmurom.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.turmurom.database.models.Mark
 import com.example.turmurom.database.models.RegisterEntity
+import com.example.turmurom.database.models.UserElected
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -27,4 +29,10 @@ interface RegisterEntityDao {
 
     @Query("SELECT * FROM Marks WHERE id = :markId")
     fun selectMarksForVisOrElect(markId: Int): Flow<List<Mark>>
+
+    @Insert
+    fun insertElectedMark(userElected: UserElected)
+
+    @Query("DELETE FROM UserElected WHERE MarkId = :markId AND UserId = :userId")
+    fun deleteElectedMark(markId: Int, userId: Int)
 }

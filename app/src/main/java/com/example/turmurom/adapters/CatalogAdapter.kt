@@ -1,5 +1,6 @@
 package com.example.turmurom.adapters
 
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +25,8 @@ class CatalogAdapter(val catalogListener: CatalogListener) :
             tvTitle.text = item.mark.title
             tvDescription.text = item.mark.description
 
+            catalogListener.onClickElect(binding)
+
             //tvCategory.text = "${item.category[0]}${item.category[1]}${item.category[2]}"
             tvCategory.text = "${catalogListener.getCategory(item.mark.categoryId)[0]}" +
                     "${catalogListener.getCategory(item.mark.categoryId)[1]}" +
@@ -42,6 +45,9 @@ class CatalogAdapter(val catalogListener: CatalogListener) :
             }
             binding.btnSchedule.setOnClickListener {
                 catalogListener.onClickSchedule(item)
+            }
+            binding.ibElect.setOnClickListener {
+                catalogListener.onClickElect(binding)
             }
 //            binding.btnGo.setOnClickListener {
 //                catalogListener.onClickSearch()
@@ -79,6 +85,10 @@ class CatalogAdapter(val catalogListener: CatalogListener) :
 
         }
         fun onClickSearch() {
+
+        }
+
+        fun onClickElect(binding : MarkListItemBinding) {
 
         }
 

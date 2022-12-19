@@ -18,7 +18,8 @@ class MainViewModel(database: MainDb) : ViewModel() {
     private val scheduleDao = database.getScheduleDao()
     private val registerEntityDao = database.getRegisterEntityDao()
 
-    var filter = false
+
+    val flag = true
 
     val allExcursions: LiveData<List<Excursion>> = excursionDao.getAllExcursions().asLiveData()
     val allCategories: LiveData<List<Category>> = markDao.getAllCategories().asLiveData()
@@ -31,7 +32,9 @@ class MainViewModel(database: MainDb) : ViewModel() {
     lateinit var allRouteMarksById: List<RouteMarks>
     lateinit var allMarkPhotosById: List<MarkPhoto>
     val allMarksByCategory: MutableLiveData<List<MarksWithPhotos>> = MutableLiveData()
+
     val markPhoto : MutableLiveData<MarkPhoto> = MutableLiveData()
+    val markById : MutableLiveData<Mark> = MutableLiveData()
 
     val allGuides: LiveData<List<Guide>> = guideDao.getAll().asLiveData()
 
@@ -40,6 +43,7 @@ class MainViewModel(database: MainDb) : ViewModel() {
      * @see updateChosenCategories()
      */
     val chosenCategoriesLiveData = MutableLiveData<List<Category>>()
+    val electedMarks = MutableLiveData<List<ElectedMarks>>()
 
 
     val dictOfCategories: MutableMap<Int, String> = mutableMapOf()
@@ -128,10 +132,9 @@ class MainViewModel(database: MainDb) : ViewModel() {
             } else {
                 allMarksByCategory.value = marks.filter { currentCategories[it.mark.categoryId] == true }
             }
-
-//            markPhoto.value = markPhotoDao.getMarkPhotoById()
         }
     }
+
 
     fun getCurrentCategories() {
         for (cat in dictOfCategories) {
@@ -139,6 +142,17 @@ class MainViewModel(database: MainDb) : ViewModel() {
         }
     }
 
+
+    /**
+     * Обновляем лайв-дату со списком избранных достопремечательностей
+     * @see electedMarks
+     */
+    fun getElectedMarks(userId : Int) {
+        viewModelScope.launch {
+            val elMarks = markDao.getElectedMarksWithPhoto(userId)
+            electedMarks.value = elMarks
+        }
+    }
 
 //    fun selectExcursionsForGuide(id : Int) : LiveData<List<Excursion>> {
 //        return excursionDao.getAllExcursionsForGuide(id).asLiveData()
@@ -177,6 +191,14 @@ class MainViewModel(database: MainDb) : ViewModel() {
 
     fun insertEntity(registerEntity: RegisterEntity) = viewModelScope.launch {
         registerEntityDao.insertEntity(registerEntity)
+    }
+
+    fun insertElectedMark(electedMark: UserElected) = viewModelScope.launch {
+        registerEntityDao.insertElectedMark(electedMark)
+    }
+
+    fun deleteElectedMark(markId: Int, userId: Int) {
+        registerEntityDao.deleteElectedMark(markId, userId)
     }
 
     /**

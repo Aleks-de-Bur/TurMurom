@@ -136,5 +136,23 @@
             app:layout_constraintStart_toEndOf="@+id/btnSchedule"
             app:layout_constraintTop_toTopOf="@+id/btnSchedule" />
 
+        <androidx.cardview.widget.CardView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:cardBackgroundColor="@color/opacityBackground"
+            app:cardCornerRadius="17dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/ibElect"
+                style="@style/ButtonElect"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                app:srcCompat="@drawable/elect_35" />
+        </androidx.cardview.widget.CardView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

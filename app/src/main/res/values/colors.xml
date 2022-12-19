@@ -15,4 +15,5 @@
     <color name="opacityBackground">#00FFFFFF</color>
     <color name="categoryBackground">#DFDDDDDD</color>
     <color name="currentCategory">#5903DAC5</color>
+    <color name="elected">#A80505</color>
 </resources>

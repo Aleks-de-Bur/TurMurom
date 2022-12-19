@@ -27,6 +27,6 @@ data class RegisterEntity(
     @ColumnInfo(name = "Password")
     var password: String,
 
-    @ColumnInfo(name = "Photo", defaultValue = "res/mipmap-hdpi/example_icon.png")
+    @ColumnInfo(name = "Photo", defaultValue = "main_photo")
     var photo: String?
 )
