@@ -16,12 +16,11 @@ import com.example.turmurom.activities.MainApp
 import com.example.turmurom.adapters.CatalogAdapter
 import com.example.turmurom.adapters.CategoryFilterAdapter
 import com.example.turmurom.database.MainViewModel
-import com.example.turmurom.database.models.Category
-import com.example.turmurom.database.models.Mark
-import com.example.turmurom.database.models.MarksWithPhotos
+import com.example.turmurom.database.models.*
 import com.example.turmurom.databinding.CategoryListItemBinding
 import com.example.turmurom.databinding.FragmentCatalogBinding
 import com.example.turmurom.databinding.MarkListItemBinding
+import com.example.turmurom.preference.SharedPreference
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -70,7 +69,8 @@ class CatalogFragment : Fragment(), CatalogAdapter.CatalogListener,
     }
 
     private fun observer() {
-        mainViewModel.filterMarksByCategory()
+        val sharedPreference = SharedPreference(requireContext())
+        mainViewModel.filterMarksByCategory(sharedPreference.getValueInt("userId"))
         mainViewModel.allMarksByCategory.observe(viewLifecycleOwner) {
             catalogAdapter.submitList(it)
         }
@@ -104,11 +104,20 @@ class CatalogFragment : Fragment(), CatalogAdapter.CatalogListener,
         Navigation.findNavController(requireView()).navigate(R.id.searchFragment)
     }
 
-    override fun onClickElect(binding: MarkListItemBinding) {
-        if(mainViewModel.flag)
-            binding.ibElect.setImageURI(Uri.parse("android.resource://com.example.turmurom/drawable/elected_35"))
-        else
+    override fun onClickElect(marksWithPhotos: MarksWithPhotos, binding: MarkListItemBinding) {
+        val sharedPreference = SharedPreference(requireContext())
+
+        if(marksWithPhotos.mark.elected) {
             binding.ibElect.setImageURI(Uri.parse("android.resource://com.example.turmurom/drawable/elect_35"))
+            mainViewModel.deleteElectedMark(marksWithPhotos.mark.id!!, sharedPreference.getValueInt("userId"))
+
+        }
+        else{
+            binding.ibElect.setImageURI(Uri.parse("android.resource://com.example.turmurom/drawable/elected_35"))
+            mainViewModel.insertElectedMark(UserElected(null, sharedPreference.getValueInt("userId"), marksWithPhotos.mark.id!!))
+        }
+        mainViewModel.filterMarksByCategory(sharedPreference.getValueInt("userId"))
+
     }
 
     //    override fun getPhoto(mark: Mark): String {
@@ -125,9 +134,10 @@ class CatalogFragment : Fragment(), CatalogAdapter.CatalogListener,
      * Переопределение листенера при клике на фильтр
      */
     override fun onClick(category: Category, binding: CategoryListItemBinding) {
+        val sharedPreference = SharedPreference(requireContext())
         mainViewModel.currentCategories[category.id!!] =
             !mainViewModel.currentCategories[category.id!!]!!
-        mainViewModel.filterMarksByCategory()
+        mainViewModel.filterMarksByCategory(sharedPreference.getValueInt("userId"))
         mainViewModel.updateChosenCategories()
     }
 

@@ -77,7 +77,7 @@ class UserElectedFragment : Fragment(), ElectedMarksAdapter.CatalogListener,
     private fun observer() {
         val sharedPreference: SharedPreference = SharedPreference(requireContext())
         mainViewModel.getElectedMarks(sharedPreference.getValueInt("userId"))
-        mainViewModel.filterMarksByCategory()
+        mainViewModel.filterMarksByCategory(sharedPreference.getValueInt("userId"))
         mainViewModel.electedMarks.observe(viewLifecycleOwner) {
             electedMarksAdapter.submitList(it)
         }
@@ -95,7 +95,7 @@ class UserElectedFragment : Fragment(), ElectedMarksAdapter.CatalogListener,
     override fun onClick(electedMark: ElectedMarks) {            //Подумать над получением фото
 
         mainViewModel.markId.value = Mark(electedMark.id, electedMark.title, electedMark.description,
-            electedMark.categoryId, electedMark.address)
+            electedMark.categoryId, electedMark.address, false)
 
         lifecycleScope.launch(Dispatchers.IO) {
             mainViewModel.selectMarkPhotosById(electedMark.id!!)
@@ -131,9 +131,10 @@ class UserElectedFragment : Fragment(), ElectedMarksAdapter.CatalogListener,
      * Переопределение листенера при клике на фильтр
      */
     override fun onClick(category: Category, binding: CategoryListItemBinding) {
+        val sharedPreference = SharedPreference(requireContext())
         mainViewModel.currentCategories[category.id!!] =
             !mainViewModel.currentCategories[category.id!!]!!
-        mainViewModel.filterMarksByCategory()
+        mainViewModel.filterMarksByCategory(sharedPreference.getValueInt("userId"))
         mainViewModel.updateChosenCategories()
     }
 

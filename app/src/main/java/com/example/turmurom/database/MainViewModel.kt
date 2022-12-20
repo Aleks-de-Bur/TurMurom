@@ -124,9 +124,9 @@ class MainViewModel(database: MainDb) : ViewModel() {
      * Обновляем лайв-дату со списком достопремечательностей по категориям
      * @see allMarksByCategory
      */
-    fun filterMarksByCategory() {
+    fun filterMarksByCategory(userId: Int) {
         viewModelScope.launch {
-            val marks = markDao.getAllMarksWithPhotos()
+            val marks = markDao.getAllMarksWithPhotos(userId)
             if (currentCategories.all { !it.value }) {
                 allMarksByCategory.value = marks
             } else {
@@ -193,12 +193,16 @@ class MainViewModel(database: MainDb) : ViewModel() {
         registerEntityDao.insertEntity(registerEntity)
     }
 
-    fun insertElectedMark(electedMark: UserElected) = viewModelScope.launch {
-        registerEntityDao.insertElectedMark(electedMark)
+    fun insertElectedMark(electedMark: UserElected) {
+        viewModelScope.launch {
+            registerEntityDao.insertElectedMark(electedMark)
+        }
     }
 
     fun deleteElectedMark(markId: Int, userId: Int) {
-        registerEntityDao.deleteElectedMark(markId, userId)
+        viewModelScope.launch {
+            registerEntityDao.deleteElectedMark(markId, userId)
+        }
     }
 
     /**

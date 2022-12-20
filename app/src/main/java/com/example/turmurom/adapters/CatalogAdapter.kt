@@ -25,12 +25,17 @@ class CatalogAdapter(val catalogListener: CatalogListener) :
             tvTitle.text = item.mark.title
             tvDescription.text = item.mark.description
 
-            catalogListener.onClickElect(binding)
+            //catalogListener.onClickElect(binding)
 
             //tvCategory.text = "${item.category[0]}${item.category[1]}${item.category[2]}"
             tvCategory.text = "${catalogListener.getCategory(item.mark.categoryId)[0]}" +
                     "${catalogListener.getCategory(item.mark.categoryId)[1]}" +
                     "${catalogListener.getCategory(item.mark.categoryId)[2]}"
+
+            if(item.mark.elected)
+                binding.ibElect.setImageURI(Uri.parse("android.resource://com.example.turmurom/drawable/elected_35"))
+            else
+                binding.ibElect.setImageURI(Uri.parse("android.resource://com.example.turmurom/drawable/elect_35"))
 
             if(item.markPhotos.isEmpty())
                 imPhoto.setImageURI(Uri.parse("android.resource://com.example.turmurom/raw/main_photo"))
@@ -47,7 +52,7 @@ class CatalogAdapter(val catalogListener: CatalogListener) :
                 catalogListener.onClickSchedule(item)
             }
             binding.ibElect.setOnClickListener {
-                catalogListener.onClickElect(binding)
+                catalogListener.onClickElect(item, binding)
             }
 //            binding.btnGo.setOnClickListener {
 //                catalogListener.onClickSearch()
@@ -88,7 +93,7 @@ class CatalogAdapter(val catalogListener: CatalogListener) :
 
         }
 
-        fun onClickElect(binding : MarkListItemBinding) {
+        fun onClickElect(marksWithPhotos: MarksWithPhotos, binding : MarkListItemBinding) {
 
         }
 

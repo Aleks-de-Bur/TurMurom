@@ -18,6 +18,7 @@ import com.example.turmurom.database.MainViewModel
 import com.example.turmurom.database.models.Category
 import com.example.turmurom.databinding.CategoryListItemBinding
 import com.example.turmurom.databinding.FragmentCategoryFilterBinding
+import com.example.turmurom.preference.SharedPreference
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class CategoryFilterFragment : BottomSheetDialogFragment(),
@@ -101,7 +102,8 @@ class CategoryFilterFragment : BottomSheetDialogFragment(),
         for (key in currentCategories.keys) {
             mainViewModel.currentCategories[key] = currentCategories[key]!!
         }
-        mainViewModel.filterMarksByCategory()
+        val sharedPreference = SharedPreference(requireContext())
+        mainViewModel.filterMarksByCategory(sharedPreference.getValueInt("userId"))
         mainViewModel.updateChosenCategories()
         //Toast.makeText(context, "", Toast.LENGTH_LONG).show()
 

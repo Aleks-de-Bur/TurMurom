@@ -24,5 +24,7 @@ data class Mark(
     @ColumnInfo(name = "CategoryId")
     var categoryId: Int,
     @ColumnInfo(name = "Address")
-    var address: String
+    var address: String,
+    @ColumnInfo(name = "Elected")
+    var elected: Boolean
 )

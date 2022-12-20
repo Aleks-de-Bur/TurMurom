@@ -31,8 +31,8 @@ interface RegisterEntityDao {
     fun selectMarksForVisOrElect(markId: Int): Flow<List<Mark>>
 
     @Insert
-    fun insertElectedMark(userElected: UserElected)
+    suspend fun insertElectedMark(userElected: UserElected)
 
     @Query("DELETE FROM UserElected WHERE MarkId = :markId AND UserId = :userId")
-    fun deleteElectedMark(markId: Int, userId: Int)
+    suspend fun deleteElectedMark(markId: Int, userId: Int)
 }
