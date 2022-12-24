@@ -153,15 +153,5 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     }
 
 
-//    override fun onStop() {
-//        mapview.onStop()
-//        MapKitFactory.getInstance().onStop()
-//        super.onStop()
-//    }
-//
-//    override fun onStart() {
-//        mapview.onStart()
-//        MapKitFactory.getInstance().onStart()
-//        super.onStart()
-//    }
+
 }

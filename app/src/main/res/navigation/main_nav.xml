@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/mapMenuItem">
+    app:startDestination="@id/catalogMenuItem">
 
     <fragment
         android:id="@+id/mapMenuItem"
@@ -25,6 +25,24 @@
         <action
             android:id="@+id/action_mapMenuItem_to_routesMenuItem"
             app:destination="@id/routesMenuItem" />
+        <action
+            android:id="@+id/action_mapMenuItem_to_catalogMenuItem"
+            app:destination="@id/catalogMenuItem" />
+        <action
+            android:id="@+id/action_mapMenuItem_to_guidesMenuItem"
+            app:destination="@id/guidesMenuItem" />
+        <action
+            android:id="@+id/action_mapMenuItem_to_guideDetailsFragment"
+            app:destination="@id/guideDetailsFragment" />
+        <action
+            android:id="@+id/action_mapMenuItem_to_excursionsMenuItem"
+            app:destination="@id/excursionsMenuItem" />
+        <action
+            android:id="@+id/action_mapMenuItem_to_electedMenuItem"
+            app:destination="@id/electedMenuItem" />
+        <action
+            android:id="@+id/action_mapMenuItem_to_excursionsMenuItem2"
+            app:destination="@id/excursionsMenuItem" />
     </fragment>
     <fragment
         android:id="@+id/catalogMenuItem"
@@ -49,6 +67,12 @@
         <action
             android:id="@+id/action_catalogMenuItem_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_catalogMenuItem_to_electedMenuItem"
+            app:destination="@id/electedMenuItem" />
+        <action
+            android:id="@+id/action_catalogMenuItem_to_mapMenuItem"
+            app:destination="@id/mapMenuItem" />
     </fragment>
     <fragment
         android:id="@+id/excursionsMenuItem"
@@ -67,6 +91,12 @@
         <action
             android:id="@+id/action_excursionsMenuItem_to_routesMenuItem"
             app:destination="@id/routesMenuItem" />
+        <action
+            android:id="@+id/action_excursionsMenuItem_to_electedMenuItem"
+            app:destination="@id/electedMenuItem" />
+        <action
+            android:id="@+id/action_excursionsMenuItem_to_mapMenuItem"
+            app:destination="@id/mapMenuItem" />
     </fragment>
     <fragment
         android:id="@+id/guidesMenuItem"
@@ -85,6 +115,12 @@
         <action
             android:id="@+id/action_guidesMenuItem_to_guideDetailsFragment"
             app:destination="@id/guideDetailsFragment" />
+        <action
+            android:id="@+id/action_guidesMenuItem_to_electedMenuItem"
+            app:destination="@id/electedMenuItem" />
+        <action
+            android:id="@+id/action_guidesMenuItem_to_mapMenuItem"
+            app:destination="@id/mapMenuItem" />
     </fragment>
     <fragment
         android:id="@+id/routesMenuItem"
@@ -103,6 +139,12 @@
         <action
             android:id="@+id/action_routesMenuItem_to_routeDetailsFragment"
             app:destination="@id/routeDetailsFragment" />
+        <action
+            android:id="@+id/action_routesMenuItem_to_electedMenuItem"
+            app:destination="@id/electedMenuItem" />
+        <action
+            android:id="@+id/action_routesMenuItem_to_mapMenuItem"
+            app:destination="@id/mapMenuItem" />
     </fragment>
     <fragment
         android:id="@+id/excursionDetailsFragment"
@@ -192,7 +234,23 @@
         android:id="@+id/electedMenuItem"
         android:name="com.example.turmurom.fragments.UserElectedFragment"
         android:label="Избранное"
-        tools:layout="@layout/fragment_user_elected" />
+        tools:layout="@layout/fragment_user_elected" >
+        <action
+            android:id="@+id/action_electedMenuItem_to_catalogMenuItem"
+            app:destination="@id/catalogMenuItem" />
+        <action
+            android:id="@+id/action_electedMenuItem_to_excursionsMenuItem"
+            app:destination="@id/excursionsMenuItem" />
+        <action
+            android:id="@+id/action_electedMenuItem_to_guideDetailsFragment"
+            app:destination="@id/guideDetailsFragment" />
+        <action
+            android:id="@+id/action_electedMenuItem_to_guidesMenuItem"
+            app:destination="@id/guidesMenuItem" />
+        <action
+            android:id="@+id/action_electedMenuItem_to_routesMenuItem"
+            app:destination="@id/routesMenuItem" />
+    </fragment>
     <!--    <fragment-->
 <!--        android:id="@+id/registerFragment"-->
 <!--        android:name="com.example.turmurom.register.RegisterFragment"-->
