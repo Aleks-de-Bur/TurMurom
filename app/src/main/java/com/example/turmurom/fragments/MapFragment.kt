@@ -51,10 +51,10 @@ class MapFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnLocation.setOnClickListener{
-            var selfLocation = mapKit.createUserLocationLayer(mapview.mapWindow)
-            selfLocation.isVisible = true
-        }
+//        binding.btnLocation.setOnClickListener{
+//            var selfLocation = mapKit.createUserLocationLayer(mapview.mapWindow)
+//            selfLocation.isVisible = true
+//        }
 
 
     }

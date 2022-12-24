@@ -10,37 +10,41 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.turmurom.R
 import com.example.turmurom.database.models.Excursion
+import com.example.turmurom.database.models.ExcursionWithPhoto
 import com.example.turmurom.database.models.Mark
 import com.example.turmurom.databinding.ExcursionListItemBinding
 
-class ExcursionAdapter(val excursionListener: ExcursionAdapter.ExcursionListener) :
-    ListAdapter<Excursion, ExcursionAdapter.Holder>(Comparator()) {
+class ExcursionAdapter(val excursionListener: ExcursionListener) :
+    ListAdapter<ExcursionWithPhoto, ExcursionAdapter.Holder>(Comparator()) {
 
     //Заполнение разметки
     class Holder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ExcursionListItemBinding.bind(view)
-        fun bind(excursion: Excursion, excursionListener: ExcursionAdapter.ExcursionListener) =
+        fun bind(excursion: ExcursionWithPhoto, excursionListener: ExcursionListener) =
             with(binding) {
-                tvTitle.text = excursion.name
-                tvDuration.text = excursion.duration
-                tvPrice.text = excursion.price
+                tvTitle.text = excursion.excursion.name
+                tvDuration.text = excursion.excursion.duration
+                tvPrice.text = excursion.excursion.price
 
-                imPhoto.setImageURI(Uri.parse("android.resource://com.example.turmurom/raw/" + excursionListener.getPhoto(excursion)))
+                if(excursion.excursionPhotos.isEmpty())
+                    imPhoto.setImageURI(Uri.parse("android.resource://com.example.turmurom/raw/wow_photo"))
+                else
+                    imPhoto.setImageURI(Uri.parse("android.resource://com.example.turmurom/raw/" + excursion.excursionPhotos.get(0).pathPhoto))
 
                 //Слушатель нажатия
                 itemView.setOnClickListener {
-                    excursionListener.onClick(excursion)
+                    excursionListener.onClick(excursion.excursion)
                 }
             }
     }
 
-    class Comparator : DiffUtil.ItemCallback<Excursion>() {
-        override fun areItemsTheSame(oldItem: Excursion, newItem: Excursion): Boolean {
-            return oldItem.id == newItem.id
+    class Comparator : DiffUtil.ItemCallback<ExcursionWithPhoto>() {
+        override fun areItemsTheSame(oldItem: ExcursionWithPhoto, newItem: ExcursionWithPhoto): Boolean {
+            return oldItem.excursion.id == newItem.excursion.id
         }
 
-        override fun areContentsTheSame(oldItem: Excursion, newItem: Excursion): Boolean {
-            return oldItem == newItem
+        override fun areContentsTheSame(oldItem: ExcursionWithPhoto, newItem: ExcursionWithPhoto): Boolean {
+            return oldItem.excursion.id == newItem.excursion.id
         }
 
     }

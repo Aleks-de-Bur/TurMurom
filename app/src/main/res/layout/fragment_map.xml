@@ -19,27 +19,27 @@
     <!--            app:layout_constraintBottom_toBottomOf="parent"-->
     <!--            app:layout_constraintEnd_toEndOf="parent"-->
     <!--            tools:ignore="SpeakableTextPresentCheck" />-->
-    <androidx.cardview.widget.CardView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        app:cardCornerRadius="180dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/mapview"
-        app:layout_constraintEnd_toEndOf="parent">
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:layout_marginBottom="20dp"-->
+<!--        app:cardCornerRadius="180dp"-->
+<!--        android:background="@color/white"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/mapview"-->
+<!--        app:layout_constraintEnd_toEndOf="parent">-->
 
-        <Button
-            android:id="@+id/btnLocation"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="-25dp"
-            android:layout_marginTop="-25dp"
-            android:layout_marginEnd="-25dp"
-            android:layout_marginBottom="-25dp"
-            android:background="@color/map_button" />
+<!--        <Button-->
+<!--            android:id="@+id/btnLocation"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_marginStart="-25dp"-->
+<!--            android:layout_marginTop="-25dp"-->
+<!--            android:layout_marginEnd="-25dp"-->
+<!--            android:layout_marginBottom="-25dp"-->
+<!--            android:background="@color/map_button" />-->
 
-    </androidx.cardview.widget.CardView>
+<!--    </androidx.cardview.widget.CardView>-->
 
     <com.yandex.mapkit.mapview.MapView
         android:id="@+id/mapview"

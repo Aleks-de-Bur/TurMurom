@@ -32,20 +32,6 @@ class RouteMarksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-//        mainViewModel.allMarksForRoute.clear()
-//        //var listOfMarksId: MutableList<Int> = mutableListOf()
-//        mainViewModel.allRouteMarksById.forEach {
-//            //listOfMarksId.add(it.markId)
-//            lifecycleScope.launch(Dispatchers.IO) {
-//                mainViewModel.getListOfMarksForRoute(it.markId)
-//            }
-//        }
-
-//        lifecycleScope.launch(Dispatchers.IO) {
-//            mainViewModel.selectRouteMarksById(route.id!!)
-//        }
-
         initRcView()
         observer()
     }
@@ -56,28 +42,10 @@ class RouteMarksFragment : Fragment() {
         rcView.adapter = adapter
     }
 
-//    private fun observer(){
-//        mainViewModel.allMarksForRoute.observe(viewLifecycleOwner, {
-//            adapter.submitList(it)
-//        })
-//    }
     private fun observer(){
-    adapter.submitList(mainViewModel.allMarksForRoute)
+        adapter.submitList(mainViewModel.allMarksForRoute)
 
     }
-
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        mainViewModel.allMarksForRoute.observe(this, {
-//            it
-//        })
-//    }
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        mainViewModel.allMarksForRoute.forEach{
-//            it
-//        }
-//    }
 
     companion object {
         @JvmStatic

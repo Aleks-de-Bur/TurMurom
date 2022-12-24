@@ -48,17 +48,19 @@ class ExcursionFragment : Fragment(), ExcursionAdapter.ExcursionListener {
     }
 
     private fun observer(){
-        mainViewModel.allExcursions.observe(viewLifecycleOwner, {
+        mainViewModel.getAllExcursionsWithPhotos()
+        mainViewModel.allExcursionsWithPhotos.observe(viewLifecycleOwner) {
             adapter.submitList(it)
-        })
+        }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        mainViewModel.allExcursions.observe(this, {
-            it
-        })
-    }
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        mainViewModel.getAllExcursionsWithPhotos()
+//        mainViewModel.allExcursionsWithPhotos.observe(this, {
+//            it
+//        })
+//    }
 
     companion object{
         @JvmStatic

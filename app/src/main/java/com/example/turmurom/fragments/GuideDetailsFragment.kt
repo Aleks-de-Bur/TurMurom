@@ -42,23 +42,31 @@ class GuideDetailsFragment : Fragment(), ExcursionAdapter.ExcursionListener {
     }
 
     private fun initRcView() = with(binding){
-        rcView.layoutManager = LinearLayoutManager(activity)
+        rcViewExcursions.layoutManager = LinearLayoutManager(activity)
         adapter = ExcursionAdapter(this@GuideDetailsFragment)
-        rcView.adapter = adapter
+        rcViewExcursions.adapter = adapter
     }
 
     private fun observer(){
-        mainViewModel.allExcursionsForGuide.observe(viewLifecycleOwner, {
+//        lifecycleScope.launch(Dispatchers.IO) {
+//            mainViewModel.getExcursionsForGuide(mainViewModel.guideId)
+//        }
+//        mainViewModel.allExcursionsForGuide.observe(viewLifecycleOwner) {
+//            adapter.submitList(it)
+//        }
+
+        mainViewModel.getAllExcursionsForGuide(mainViewModel.guideId)
+        mainViewModel.allExcursionsForGuide.observe(viewLifecycleOwner) {
             adapter.submitList(it)
-        })
+        }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        mainViewModel.allExcursionsForGuide.observe(this, {
-            it
-        })
-    }
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        mainViewModel.allExcursionsForGuide.observe(this, {
+//            it
+//        })
+//    }
 
     override fun onClick(excursion: Excursion) {
         mainViewModel.excursion.value = excursion

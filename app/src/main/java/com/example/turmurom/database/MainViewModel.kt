@@ -19,19 +19,22 @@ class MainViewModel(database: MainDb) : ViewModel() {
     private val registerEntityDao = database.getRegisterEntityDao()
 
 
-    val flag = true
+    var guideId = 0
 
-    val allExcursions: LiveData<List<Excursion>> = excursionDao.getAllExcursions().asLiveData()
+    //val allExcursions: LiveData<List<Excursion>> = excursionDao.getAllExcursions().asLiveData()
     val allCategories: LiveData<List<Category>> = markDao.getAllCategories().asLiveData()
-    lateinit var allExcursionsForGuide: LiveData<List<Excursion>>
+
     lateinit var allExcursionPhotosById: List<ExcursionPhoto>
     lateinit var allSchedule: LiveData<List<Schedule>>
     val allRoutes: LiveData<List<Route>> = routeDao.getAllRoutes().asLiveData()
     //val allMarks: LiveData<List<Mark>> = markDao.getAllMarks().asLiveData()
-    var allMarksForRoute: MutableList<Mark> = mutableListOf()
+    var allMarksForRoute: MutableList<MarksWithPhotos> = mutableListOf()
     lateinit var allRouteMarksById: List<RouteMarks>
     lateinit var allMarkPhotosById: List<MarkPhoto>
     val allMarksByCategory: MutableLiveData<List<MarksWithPhotos>> = MutableLiveData()
+    val allExcursionsWithPhotos: MutableLiveData<List<ExcursionWithPhoto>> = MutableLiveData()
+//    lateinit var allExcursionsForGuide: List<ExcursionWithPhoto>
+    val allExcursionsForGuide: MutableLiveData<List<ExcursionWithPhoto>> = MutableLiveData()
 
     val markPhoto : MutableLiveData<MarkPhoto> = MutableLiveData()
     val markById : MutableLiveData<Mark> = MutableLiveData()
@@ -117,7 +120,7 @@ class MainViewModel(database: MainDb) : ViewModel() {
 
 
     fun getListOfMarksForRoute(id: Int) {
-        allMarksForRoute.add(markDao.getMarkById(id)!!)
+        allMarksForRoute.add(markDao.getMarkById(id))
     }
 
     /**
@@ -154,13 +157,50 @@ class MainViewModel(database: MainDb) : ViewModel() {
         }
     }
 
+    /**
+     * Обновляем лайв-дату со списком Экскурсий с фотографиями
+     * @see allExcursionsWithPhotos
+     */
+    fun getAllExcursionsWithPhotos() {
+        viewModelScope.launch {
+            val excursions = excursionDao.getAllExcursionsWithPhotos()
+            allExcursionsWithPhotos.value = excursions
+
+        }
+    }
+
 //    fun selectExcursionsForGuide(id : Int) : LiveData<List<Excursion>> {
 //        return excursionDao.getAllExcursionsForGuide(id).asLiveData()
 //    }
 
-    fun selectExcursionsForGuide(id: Int) {
-        allExcursionsForGuide = excursionDao.getAllExcursionsForGuide(id).asLiveData()
+//    fun getExcursionsForGuide(id: Int) {
+//        viewModelScope.launch {
+//            val excursions = excursionDao.getAllExcursionsForGuide(id)
+//            allExcursionsForGuide.value = excursions
+//        }
+//    }
+
+    /**
+     * Обновляем лайв-дату со списком Экскурсий с фотографиями
+     * @see allExcursionsForGuide
+     */
+    fun getAllExcursionsForGuide(id: Int) {
+        viewModelScope.launch {
+            val excursions = excursionDao.getAllExcursionsForGuide(id)
+            allExcursionsForGuide.value = excursions
+
+        }
     }
+
+
+
+
+
+
+
+
+
+
 
     fun selectExcursionPhotosById(id: Int) {
         allExcursionPhotosById = excursionPhotoDao.getExcursionPhotosById(id)
@@ -170,9 +210,9 @@ class MainViewModel(database: MainDb) : ViewModel() {
         allRouteMarksById = routeDao.getRouteMarksById(id)
     }
 
-    fun selectMarkById(id: Int): Mark? {
-        return markDao.getMarkById(id)
-    }
+//    fun selectMarkById(id: Int): MarksWithPhotos? {
+//        return markDao.getMarkById(id)
+//    }
 
     fun selectMarkPhotosById(id: Int) {
         allMarkPhotosById = markPhotoDao.getMarkPhotosById(id)

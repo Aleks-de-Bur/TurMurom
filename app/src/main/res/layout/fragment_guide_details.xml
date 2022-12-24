@@ -7,7 +7,7 @@
     tools:context=".fragments.GuideDetailsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcView"
+        android:id="@+id/rcViewExcursions"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingLeft="10dp"

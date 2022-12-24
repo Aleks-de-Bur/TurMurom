@@ -63,9 +63,10 @@ class GuidesFragment : Fragment(), GuideAdapter.GuideListener {
     }
 
     override fun onClick(guide: Guide) {
-        lifecycleScope.launch(Dispatchers.IO) {
-            mainViewModel.selectExcursionsForGuide(guide.id!!)
-        }
+//        lifecycleScope.launch(Dispatchers.IO) {
+            //mainViewModel.getExcursionsForGuide(guide.id!!)
+//        }
+        mainViewModel.guideId = guide.id!!
         Navigation.findNavController(requireView()).navigate(R.id.guideDetailsFragment)
     }
 

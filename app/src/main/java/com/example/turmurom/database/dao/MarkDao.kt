@@ -46,7 +46,7 @@ interface MarkDao {
     fun getMarkByCategoryId(categoryIds: String): Flow<List<Mark>>
 
     @Query("SELECT * FROM Marks WHERE id = :id")
-    fun getMarkById(id: Int): Mark
+    fun getMarkById(id: Int): MarksWithPhotos
 
     @Query("SELECT * FROM Marks WHERE Title = :searchQuery")
     fun searchMark(searchQuery: String): Flow<List<Mark>>

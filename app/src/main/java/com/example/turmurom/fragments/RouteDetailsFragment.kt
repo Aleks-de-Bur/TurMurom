@@ -44,9 +44,7 @@ class RouteDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         mainViewModel.allMarksForRoute.clear()
-        //var listOfMarksId: MutableList<Int> = mutableListOf()
         mainViewModel.allRouteMarksById.forEach {
-            //listOfMarksId.add(it.markId)
             lifecycleScope.launch(Dispatchers.IO) {
                 mainViewModel.getListOfMarksForRoute(it.markId)
             }
