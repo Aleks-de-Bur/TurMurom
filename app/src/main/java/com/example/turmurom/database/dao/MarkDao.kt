@@ -26,7 +26,7 @@ interface MarkDao {
     @Query("SELECT ab.id, ab.Title, ab.Description, ab.CategoryId, ab.Address, " +
             "CASE WHEN (SELECT 1 FROM UserElected WHERE UserId = :userId AND MarkId = ab.id) = 1 THEN 1 ELSE 0 END AS Elected " +
             "FROM Marks ab INNER JOIN MarkPhotos gf ON gf.MarkId = ab.id " +
-            "GROUP BY ab.id, ab.Title, gf.Photo")
+            "GROUP BY ab.id, ab.Title")
     suspend fun getAllMarksWithPhotos(userId: Int): List<MarksWithPhotos>
 
     @Transaction

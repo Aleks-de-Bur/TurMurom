@@ -31,9 +31,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            style="@style/HeaderText"
             android:text="Длинное название точки"
             android:textSize="16sp"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imPhoto"
             app:layout_constraintTop_toTopOf="parent" />
@@ -46,6 +46,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="Длинное длинное описание"
+            style="@style/category_item"
             android:ellipsize="end"
             android:maxLines="2"
             android:textStyle="italic"

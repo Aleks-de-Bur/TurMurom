@@ -59,6 +59,7 @@
             android:drawableTop="@drawable/btn_go_24"
             android:text="@string/btnGo"
             android:textSize="12sp"
+            app:backgroundTint="#078287"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

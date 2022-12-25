@@ -43,6 +43,7 @@ class CatalogItemFragment : Fragment() {
             markItem = it
             binding.tvTitle.text = it.title
             binding.tvDescription.text = it.description
+            binding.tvAddress.text = it.address
         })
 
         binding.btnSchedule.setOnClickListener {

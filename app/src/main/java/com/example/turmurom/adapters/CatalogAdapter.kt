@@ -27,10 +27,12 @@ class CatalogAdapter(val catalogListener: CatalogListener) :
 
             //catalogListener.onClickElect(binding)
 
-            //tvCategory.text = "${item.category[0]}${item.category[1]}${item.category[2]}"
+//            tvCategory.text = "${item.category[0]}${item.category[1]}${item.category[2]}"
             tvCategory.text = "${catalogListener.getCategory(item.mark.categoryId)[0]}" +
                     "${catalogListener.getCategory(item.mark.categoryId)[1]}" +
                     "${catalogListener.getCategory(item.mark.categoryId)[2]}"
+
+//            tvCategory.text = catalogListener.getCategory(item.mark.categoryId)
 
             if(item.mark.elected)
                 binding.ibElect.setImageURI(Uri.parse("android.resource://com.example.turmurom/drawable/elected_35"))

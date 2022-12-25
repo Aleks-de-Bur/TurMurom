@@ -45,7 +45,7 @@ class ElectedMarksAdapter(val catalogListener: CatalogListener) :
                 catalogListener.onClickSchedule(item)
             }
             binding.ibElect.setOnClickListener {
-                it.visibility = View.INVISIBLE
+                itemView.visibility = View.INVISIBLE
                 catalogListener.onClickElect(item.id)
             }
         }

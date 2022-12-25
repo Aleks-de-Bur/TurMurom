@@ -27,13 +27,15 @@
 
         <TextView
             android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
+            style="@style/HeaderText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:text="Длинное название точки"
             android:textSize="16sp"
-            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/relLay"
             app:layout_constraintStart_toStartOf="@+id/imPhoto"
             app:layout_constraintTop_toBottomOf="@+id/imPhoto" />
 
