@@ -1,6 +1,7 @@
 package com.example.turmurom.database
 
 import androidx.lifecycle.*
+import com.example.turmurom.activities.MainActivity
 import com.example.turmurom.database.models.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +18,6 @@ class MainViewModel(database: MainDb) : ViewModel() {
     private val guideDao = database.getGuideDao()
     private val scheduleDao = database.getScheduleDao()
     private val registerEntityDao = database.getRegisterEntityDao()
-
 
     var guideId = 0
 

@@ -85,7 +85,7 @@ class CatalogFragment : Fragment(), CatalogAdapter.CatalogListener,
         fun newInstance() = CatalogFragment
     }
 
-    override fun onClick(marksWithPhotos: MarksWithPhotos) {            //Подумать над получением фото
+    override fun onClick(marksWithPhotos: MarksWithPhotos) {
         mainViewModel.markId.value = marksWithPhotos.mark
         lifecycleScope.launch(Dispatchers.IO) {
             mainViewModel.selectMarkPhotosById(marksWithPhotos.mark.id!!)

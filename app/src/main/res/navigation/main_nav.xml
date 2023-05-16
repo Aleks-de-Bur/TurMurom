@@ -73,6 +73,9 @@
         <action
             android:id="@+id/action_catalogMenuItem_to_mapMenuItem"
             app:destination="@id/mapMenuItem" />
+        <action
+            android:id="@+id/action_catalogMenuItem_to_exampleAPIFragment"
+            app:destination="@id/exampleMenuItem" />
     </fragment>
     <fragment
         android:id="@+id/excursionsMenuItem"
@@ -251,6 +254,11 @@
             android:id="@+id/action_electedMenuItem_to_routesMenuItem"
             app:destination="@id/routesMenuItem" />
     </fragment>
+    <fragment
+        android:id="@+id/exampleMenuItem"
+        android:name="com.example.turmurom.fragments.ExampleAPIFragment"
+        android:label="fragment_example_api"
+        tools:layout="@layout/fragment_example_api" />
     <!--    <fragment-->
 <!--        android:id="@+id/registerFragment"-->
 <!--        android:name="com.example.turmurom.register.RegisterFragment"-->

@@ -37,6 +37,10 @@
             android:id="@+id/visitedMenuItem"
             android:icon="@drawable/check_24"
             android:title="@string/visitedMenuItem" />
+        <item
+            android:id="@+id/exampleMenuItem"
+            android:icon="@drawable/check_24"
+            android:title="@string/exampleMenuItem" />
 <!--    <item android:id="@+id/search"-->
 <!--        android:title="@string/search"-->
 <!--        android:icon="@drawable/search_24"-->

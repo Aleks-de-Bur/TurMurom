@@ -24,9 +24,19 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.turmurom.R
 import com.example.turmurom.database.MainDb
 import com.example.turmurom.database.MainViewModel
+import com.example.turmurom.database.models.Category
 import com.example.turmurom.databinding.ActivityMainBinding
 import com.example.turmurom.preference.SharedPreference
-import com.yandex.mapkit.MapKitFactory
+import com.example.turmurom.retrofit.ExampleAPI
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import ru.dgis.sdk.Context
+import ru.dgis.sdk.DGis
 
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private lateinit var binding: ActivityMainBinding
@@ -38,11 +48,37 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     }
     //lateinit var mapview: MapView
     //lateinit var selfLocation: Button
+    //lateinit var sdkContext: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val sharedPreference = SharedPreference(this)
+
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
+
+        val client = OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://192.168.0.75:8080/api/").client(client)
+//            .baseUrl("https://dummyjson.com")
+            .addConverterFactory(GsonConverterFactory.create()).build()
+        val exampleApi = retrofit.create(ExampleAPI::class.java)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val guides = exampleApi.getGuides()
+            runOnUiThread{
+                //binding.tvTitle.text = category.body()!!.title
+                Toast.makeText(applicationContext, guides.body()!![0].lastName, Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
+
+
 
 
 //        lifecycleScope.launch(Dispatchers.Default) {
@@ -54,8 +90,10 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
         //Toast.makeText(this, mainViewModel.currentUser.login, Toast.LENGTH_SHORT).show()
 
-        MapKitFactory.setApiKey("a44ceb31-ee98-4267-bcc7-294cda8c8cc3");
-        MapKitFactory.initialize(this);
+        //MapKitFactory.setApiKey("a44ceb31-ee98-4267-bcc7-294cda8c8cc3");
+        //MapKitFactory.initialize(this);
+
+        //sdkContext = DGis.initialize( this )
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

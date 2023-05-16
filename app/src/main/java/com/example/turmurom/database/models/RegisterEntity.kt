@@ -18,6 +18,9 @@ data class RegisterEntity(
     @ColumnInfo(name = "FirstName")
     var firstName: String,
 
+    //    @ColumnInfo(name = "Active")
+    //    var active: Boolean,
+
     @ColumnInfo(name = "Login")
     var login: String,
 

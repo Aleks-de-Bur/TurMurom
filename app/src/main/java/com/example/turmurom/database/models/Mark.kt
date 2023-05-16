@@ -25,6 +25,10 @@ data class Mark(
     var categoryId: Int,
     @ColumnInfo(name = "Address")
     var address: String,
+//    @ColumnInfo(name = "AxisX")
+//    var axisx: String,
+//    @ColumnInfo(name = "AxisY")
+//    var axisy: String,
     @ColumnInfo(name = "Elected")
     var elected: Boolean
 )
